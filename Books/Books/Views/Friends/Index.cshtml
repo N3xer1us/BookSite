@@ -1,0 +1,65 @@
+﻿@model Books.ViewModels.FriendRequests.IndexVM
+@using Books.ServiceReference1
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<fieldset>
+    <legend>Friend Requests</legend>
+
+    <div>
+        @using (Html.BeginForm("Index", "Friends", FormMethod.Get))
+        {
+            <p>
+                Name:@Html.TextBox("SearchName")
+                <input type="submit" value="Search" />
+            </p>
+        }
+    </div>
+    <hr />
+
+    <div class="grid">
+        <div class="row">
+
+            @if (Model.FriendRequests.Count() == 0)
+            {
+                <p>You have no pending friend requests</p>
+            }
+
+            @foreach (FriendRequestDTO request in Model.FriendRequests)
+            {
+                <div class="row">
+                    <div class="col-2"><p><a href="/User/UserProfile?Id=@request.Sender.Id"> @request.Sender.Username</a>: @request.Message</p></div>
+                    <div class="col-3">
+                        <p>
+                            | <a href="/Friends/Accept?Id=@request.Sender.Id">Accept</a> |
+                            <a href="/Friends/Refuse?Id=@request.Sender.Id">Refuse</a> |
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p class="right">
+                    @if (Model.Page > 1)
+                    {
+                        <a href="/Friends/Index?Page=@(Model.Page-1)"> < </a>
+                    }
+
+                    @Model.Page
+
+                    @if (Model.Page < Model.PageCount)
+                    {
+                        <a href="/Friends/Index?Page=@(Model.Page + 1)"> > </a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+
+

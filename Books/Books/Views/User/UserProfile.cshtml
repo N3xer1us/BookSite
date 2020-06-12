@@ -1,0 +1,105 @@
+﻿@model Books.ViewModels.Users.ProfileVM
+@using Books.ServiceReference1
+@{
+    ViewBag.Title = "UserProfile";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO currentUser = (UserDTO)Session["loggedUser"];
+
+    Service1Client service = new Service1Client();
+    FriendDTO viewer = service.GetFriendsByUserId(currentUser.Id).Where(u =>u.Friend.Id == currentUser.Id)
+                                     .FirstOrDefault();
+}
+
+
+
+<div class="grid">
+    <div class="right">
+        <fieldset>
+            <legend>Friends</legend>
+            <div class="row">
+
+                @if (Model.Friends.Count() == 0)
+                {
+                    <p>@Model.Username has no friends :(</p>
+                }
+
+                @foreach (FriendDTO friend in Model.Friends)
+                {
+                    <div class="row">
+                        <div class="col-2"><a href="/User/UserProfile?Id=@friend.Friend.Id">@friend.Friend.Username</a></div>
+                    </div>
+                }
+
+                @if (Model.Friends.Count() != 0)
+                {
+                    <div class="row">
+                        <div class="col-2"><a href="/Friends/ShowAll?Id=@Model.Id">Show All</a></div>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <fieldset>
+        <legend>User Profile</legend>
+
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Username): </div>
+            <div class="col-2">@Model.Username</div>
+        </div>
+        @if (viewer != null)
+        {
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.FirstName)</div>
+                <div class="col-2">@Model.FirstName</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.LastName)</div>
+                <div class="col-2">@Model.LastName</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Email)</div>
+                <div class="col-2">@Model.Email</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.DOB)</div>
+                <div class="col-2">@Model.DOB</div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Role)</div>
+            <div class="col-2">@Model.Role</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.isOnline)</div>
+            <div class="col-2">
+                @if (Model.isOnline)
+                {
+                    <p>Online</p>
+                }
+                else
+                {
+                    <p>Offline</p>
+                }
+            </div>
+        </div>
+
+
+    </fieldset>
+    @if (viewer != null)
+    {
+        <fieldset>
+            <legend>Downloaded Books</legend>
+            <div class="row">
+                @foreach (UserToBookDTO books in Model.Books)
+                {
+                    <div class="row">
+                        <div class="col-2"><a href="/Book/Display?Id=@books.Book.Id">@books.Book.Title</a></div>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    }
+</div>
+
+

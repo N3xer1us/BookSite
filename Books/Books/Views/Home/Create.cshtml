@@ -1,0 +1,49 @@
+﻿@model Books.ViewModels.Home.CreateVM
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<fieldset>
+    <legend>Register</legend>
+
+        <form action="/Home/Create" method="post">
+            <div class="grid">
+                <div class="row">
+                    <div class="col-1"> @Html.LabelFor(u => u.Username) </div>
+                    <div class="col-2"> @Html.TextBoxFor(u => u.Username) </div>
+                    <div class="col-2"> @Html.ValidationMessageFor(u => u.Username)</div>
+                </div>
+                <div class="row">
+                    <div class="col-1"> @Html.LabelFor(u => u.Password)</div>
+                    <div class="col-2"> @Html.PasswordFor(u => u.Password)</div>
+                    <div class="col-2"> @Html.ValidationMessageFor(u => u.Password)</div>
+                </div>
+                <div class="row">
+                    <div class="col-1"> @Html.LabelFor(u => u.FirstName)</div>
+                    <div class="col-2"> @Html.TextBoxFor(u => u.FirstName)</div>
+                    <div class="col-2"> @Html.ValidationMessageFor(u => u.FirstName)</div>
+                </div>
+                <div class="row">
+                    <div class="col-1"> @Html.LabelFor(u => u.LastName)</div>
+                    <div class="col-2"> @Html.TextBoxFor(u => u.LastName)</div>
+                    <div class="col-2"> @Html.ValidationMessageFor(u => u.LastName)</div>
+                </div>
+                <div class="row">
+                    <div class="col-1"> @Html.LabelFor(u => u.Email)</div>
+                    <div class="col-2"> @Html.TextBoxFor(u => u.Email)</div>
+                    <div class="col-3"> @Html.ValidationMessageFor(u => u.Email)</div>
+                </div>
+                <div class="row">
+                    <div class="col-1"> @Html.LabelFor(u => u.DOB)</div>
+                    <div class="col-2"> @Html.EditorFor(u => u.DOB)</div>
+                    <div class="col-3"> @Html.ValidationMessageFor(u => u.DOB)</div>
+                </div>
+                <div class="row">
+                    <div class="col-3"><input class="right" type="submit" value="Login" /></div>
+                </div>
+            </div>
+        </form>
+</fieldset>
+

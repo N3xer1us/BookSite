@@ -1,0 +1,50 @@
+﻿@model Books.ViewModels.FriendRequests.FriendsVM
+@using Books.ServiceReference1
+
+@{
+    ViewBag.Title = "ShowAll";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO currentUser = (UserDTO)Session["loggedUser"];
+}
+
+<fieldset>
+    <legend>@Model.User.Username's Friends</legend>
+
+    <div>
+        @using (Html.BeginForm("ShowAll", "Friends", FormMethod.Get))
+        {
+            <p>
+                @Html.HiddenFor(u=>u.Id)
+                Name:@Html.TextBox("SearchName")
+                <input type="submit" value="Search" />
+            </p>
+        }
+    </div>
+    <hr />
+
+    <div class="grid">
+        <div class="row">
+
+            @if (Model.Friends.Count() == 0)
+            {
+                <p>There are no friends here</p>
+            }
+
+            @foreach (FriendDTO friend in Model.Friends)
+            {
+                <div class="row">
+                    <div class="col-2"><a href="/User/UserProfile?Id=@friend.Friend.Id">@friend.Friend.Username</a></div>
+                    @if (Model.Id == currentUser.Id)
+                    {
+                        <div class="col-3">
+                            <a href="/Friends/Unfriend?Id=@friend.Friend.Id">Unfriend</a>
+                        </div>
+                    }
+                </div>
+            }
+
+        </div>
+    </div>
+</fieldset>
+

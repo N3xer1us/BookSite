@@ -1,0 +1,35 @@
+﻿@model Books.ViewModels.Genres.GenreVM
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<fieldset>
+    <legend>Edit Genre</legend>
+
+    <form action="/Genre/Edit" method="post">
+        <div class="grid">
+            <div class="col-2">@Html.HiddenFor(u => u.Id)</div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.GenreName) </div>
+                <div class="col-2"> @Html.TextBoxFor(u => u.GenreName) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.GenreName)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Description)</div>
+                <div class="col-2"> @Html.TextAreaFor(u => u.Description)</div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Description)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Rating) </div>
+                <div class="col-2"> @Html.EditorFor(u => u.Rating) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Rating)</div>
+            </div>
+            <div class="row">
+                <div class="col-3"><input class="right" type="submit" value="Save" /></div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+

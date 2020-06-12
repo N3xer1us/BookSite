@@ -1,0 +1,49 @@
+﻿@model Books.ViewModels.Books.BookVM
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<fieldset>
+    <legend>Create Book</legend>
+
+    <form action="/Book/Create" method="post">
+        <div class="grid">
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Title) </div>
+                <div class="col-2"> @Html.TextBoxFor(u => u.Title) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Title)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.AuthorId)</div>
+                <div class="col-2"> @Html.DropDownListFor(m => m.AuthorId, Model.Authors)</div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.AuthorId)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.GenreId)</div>
+                <div class="col-2"> @Html.DropDownListFor(m => m.GenreId, Model.Genres)</div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.GenreId)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Description)</div>
+                <div class="col-2"> @Html.TextAreaFor(u => u.Description)</div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Description)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Price)</div>
+                <div class="col-2"> @Html.EditorFor(u => u.Price)</div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Price)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Rating)</div>
+                <div class="col-2"> @Html.EditorFor(u => u.Rating)</div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Rating)</div>
+            </div>
+            <div class="row">
+                <div class="col-3"><input class="right" type="submit" value="Create" /></div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+

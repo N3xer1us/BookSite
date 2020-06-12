@@ -1,0 +1,73 @@
+﻿@model Books.ViewModels.Users.IndexVM
+@using Books.ServiceReference1
+
+@{
+    ViewBag.Title = "Roles";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO loggedUser = (UserDTO)Session["loggedUser"];
+}
+
+<fieldset>
+    <legend>Site Users</legend>
+
+    <div>
+        @using (Html.BeginForm("Index", "User", FormMethod.Get))
+        {
+            <p>
+                Name:@Html.TextBox("Search")
+                <input type="submit" value="Search" />
+            </p>
+        }
+    </div>
+    <hr />
+
+    <div class="grid">
+        <div class="row">
+            @foreach (UserDTO user in Model.Users)
+            {
+                if(loggedUser.userRole.Id <= user.userRole.Id)
+                {
+                <div class="row">
+                    <div class="col-2"><a href="/User/UserProfile?Id=@user.Id"> @user.Username </a></div>
+                    <div class="col-3">
+                        @if (loggedUser.userRole.Id <= 2)
+                        {
+
+                            if (loggedUser.userRole.Id == 1)
+                            {
+                                <p>
+                                    | <a href="/User/ChangeRole?Id=@user.Id&&Role=2">Admin</a>
+                                </p>
+                            }
+                            <p>
+                                |  <a href="/User/ChangeRole?Id=@user.Id&&Role=3"> Mod </a> |
+                                <a href="/User/ChangeRole?Id=@user.Id&&Role=4"> User </a> |
+                            </p>
+                        }
+                    </div>
+                </div>
+                    }
+                }
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p class="right">
+                    @if (Model.Page > 1)
+                    {
+                        <a href="/User/Roles?Page=@(Model.Page-1)"> < </a>
+                    }
+
+                    @Model.Page
+
+                    @if (Model.Page < Model.PageCount)
+                    {
+                        <a href="/User/Roles?Page=@(Model.Page + 1)"> > </a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</fieldset>
+
+

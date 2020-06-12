@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AppService.DTOs" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AppService.DTOs" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="UserDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DOB" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="isOnline" type="xs:boolean" />
+          <xs:element minOccurs="0" name="userRole" nillable="true" type="tns:RoleDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserDTO" nillable="true" type="tns:UserDTO" />
+  <xs:complexType name="BaseDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BaseDTO" nillable="true" type="tns:BaseDTO" />
+  <xs:complexType name="RoleDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="RoleDescription" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RoleName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="UserCount" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="RoleDTO" nillable="true" type="tns:RoleDTO" />
+  <xs:complexType name="ArrayOfUserDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserDTO" nillable="true" type="tns:UserDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserDTO" nillable="true" type="tns:ArrayOfUserDTO" />
+  <xs:complexType name="ArrayOfBookDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BookDTO" nillable="true" type="tns:BookDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBookDTO" nillable="true" type="tns:ArrayOfBookDTO" />
+  <xs:complexType name="BookDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="DateAdded" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Price" type="xs:decimal" />
+          <xs:element minOccurs="0" name="Rating" type="xs:double" />
+          <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="bookAuthor" nillable="true" type="tns:AuthorDTO" />
+          <xs:element minOccurs="0" name="bookGenre" nillable="true" type="tns:GenreDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BookDTO" nillable="true" type="tns:BookDTO" />
+  <xs:complexType name="AuthorDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ActiveFrom" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="ActiveTo" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="BookCount" type="xs:int" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Rating" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AuthorDTO" nillable="true" type="tns:AuthorDTO" />
+  <xs:complexType name="GenreDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="BookCount" type="xs:int" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="GenreName" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="LastUpdated" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Rating" type="xs:double" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="GenreDTO" nillable="true" type="tns:GenreDTO" />
+  <xs:complexType name="ArrayOfAuthorDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AuthorDTO" nillable="true" type="tns:AuthorDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAuthorDTO" nillable="true" type="tns:ArrayOfAuthorDTO" />
+  <xs:complexType name="ArrayOfGenreDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GenreDTO" nillable="true" type="tns:GenreDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGenreDTO" nillable="true" type="tns:ArrayOfGenreDTO" />
+  <xs:complexType name="ArrayOfRoleDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="RoleDTO" nillable="true" type="tns:RoleDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRoleDTO" nillable="true" type="tns:ArrayOfRoleDTO" />
+  <xs:complexType name="ArrayOfUserToBookDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserToBookDTO" nillable="true" type="tns:UserToBookDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserToBookDTO" nillable="true" type="tns:ArrayOfUserToBookDTO" />
+  <xs:complexType name="UserToBookDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Book" nillable="true" type="tns:BookDTO" />
+          <xs:element minOccurs="0" name="bookUser" nillable="true" type="tns:UserDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserToBookDTO" nillable="true" type="tns:UserToBookDTO" />
+  <xs:complexType name="ArrayOfFriendDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FriendDTO" nillable="true" type="tns:FriendDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFriendDTO" nillable="true" type="tns:ArrayOfFriendDTO" />
+  <xs:complexType name="FriendDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="CreatedOn" nillable="true" type="xs:dateTime" />
+          <xs:element minOccurs="0" name="Friend" nillable="true" type="tns:UserDTO" />
+          <xs:element minOccurs="0" name="User" nillable="true" type="tns:UserDTO" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FriendDTO" nillable="true" type="tns:FriendDTO" />
+  <xs:complexType name="ArrayOfFriendRequestDTO">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="FriendRequestDTO" nillable="true" type="tns:FriendRequestDTO" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFriendRequestDTO" nillable="true" type="tns:ArrayOfFriendRequestDTO" />
+  <xs:complexType name="FriendRequestDTO">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:BaseDTO">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Receiver" nillable="true" type="tns:UserDTO" />
+          <xs:element minOccurs="0" name="Sender" nillable="true" type="tns:UserDTO" />
+          <xs:element minOccurs="0" name="SentOn" nillable="true" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="FriendRequestDTO" nillable="true" type="tns:FriendRequestDTO" />
+</xs:schema>

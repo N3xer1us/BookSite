@@ -1,0 +1,62 @@
+﻿@model Books.ViewModels.Books.DisplayVM
+@using  Books.ServiceReference1
+@{
+    ViewBag.Title = "Display";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO loggedUser = (UserDTO)Session["loggedUser"];
+
+}
+
+<fieldset>
+    <legend>Book Info</legend>
+    <div class="grid">
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Title)</div>
+            <div class="col-2"> @Model.Title</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Author)</div>
+            <div class="col-2"> @Model.Author</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Genre)</div>
+            <div class="col-2"> @Model.Genre</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Description)</div>
+            <div class="col-2"> @Model.Description</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Price)</div>
+            <div class="col-2"> @Model.Price</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.Rating)</div>
+            <div class="col-2"> @Model.Rating</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u => u.DateAdded)</div>
+            <div class="col-2"> @Model.DateAdded</div>
+        </div>
+        @if (loggedUser.userRole.Id <= 3)
+        {
+        <div class="row">
+            <div class="col-2"><a href="/Book/Edit?Id=@Model.Id">Edit Info</a></div>
+        </div>
+        }
+        <fieldset>
+            <legend>Downloaded By</legend>
+
+            <div class="row">
+                @foreach (UserToBookDTO user in Model.Users)
+                {
+                    <div class="row">
+                        <a href="/User/UserProfile?Id=@user.bookUser.Id"> @user.bookUser.Username </a>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+</fieldset>
+

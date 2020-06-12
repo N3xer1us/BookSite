@@ -1,0 +1,32 @@
+﻿@model Books.ViewModels.Home.LoginVM
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+<fieldset>
+<legend>Login</legend>
+
+<div class="left"><a href="/Home/Create">Register</a>
+
+<form action="/Home/Login" method="post">
+    <div class="grid">
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u=> u.Username) </div>
+            <div class="col-2"> @Html.TextBoxFor(u=>u.Username) </div>
+            <div class="col-2"> @Html.ValidationMessageFor(u=> u.Username)</div>
+        </div>
+        <div class="row">
+            <div class="col-1"> @Html.LabelFor(u=> u.Password)</div>
+            <div class="col-2"> @Html.PasswordFor(u => u.Password)</div>
+            <div class="col-2"> @Html.ValidationMessageFor(u => u.Password)</div>
+        </div>
+        <div class="row">
+            <div class="col-3"> @Html.ValidationMessage("AuthError")</div>
+        </div>
+        <div class="row">
+            <div class="col-3"><input class="right" type="submit" value="Login" /></div>
+        </div>
+    </div>
+</form>
+</fieldset>

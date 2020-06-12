@@ -1,0 +1,71 @@
+﻿@using Books.ServiceReference1
+@{
+
+    Service1Client service = new Service1Client();
+
+    UserDTO currentUser = Session["loggedUser"] == null
+                                ? null
+                                : (UserDTO)Session["loggedUser"];
+
+    List<FriendRequestDTO> requests = null;
+    if (currentUser != null)
+    {
+        requests = service.GetFriendRequestByUserId(currentUser.Id).ToList();
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Digital Library</title>
+    <link href="~/Content/Style.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+        <h1 class="left">Virtual Library</h1>
+        
+        <p>
+            <div class="right">
+                @if (currentUser == null)
+                {
+                    <a href="/Home/Login"> Login</a>
+                }
+                else
+                {
+                    <a href="/Home/Logout"> Logout</a>
+                }
+            </div>
+            <div class="right bold">
+                <a href="/Home/UserProfile">
+                    @(currentUser == null ? "" : currentUser.Username) | 
+                </a>
+            </div>
+        </p>
+    </div>
+    <div class="menu">
+        <ul>
+            <li><a href="/Home/Index">Home</a></li>
+            <li><a href="/User/Index">Users</a></li>
+            <li><a href="/Book/Index">Books</a></li>
+            <li><a href="/Author/Index">Authors</a></li>
+            <li><a href="/Genre/Index">Genres</a></li>
+            @if (currentUser != null)
+            {
+                if (currentUser.userRole.Id <= 2)
+                {
+                <li><a href="/User/Roles">Manage Roles</a></li>
+                }
+            }
+            @if (currentUser != null)
+            {
+            <li><a href="/Friends/Index">Friend Requests(@(requests == null ? 0 : requests.Count()))</a></li>
+            }
+        </ul>
+    </div>
+    <div class="body">
+        @RenderBody()
+    </div>
+</body>
+</html>

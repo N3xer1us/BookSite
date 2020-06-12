@@ -1,0 +1,71 @@
+﻿@using Books.ServiceReference1
+@model Books.ViewModels.Authors.IndexVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO loggedUser = (UserDTO)Session["loggedUser"];
+}
+
+<fieldset>
+    <legend>Authors</legend>
+
+        <div>
+            @using (Html.BeginForm("Index", "Author", FormMethod.Get))
+            {
+                <p>
+                    Name:@Html.TextBox("Search")
+                    <input type="submit" value="Search" />
+                </p>
+            }
+        </div>
+
+    <hr />
+    <div class="grid">
+        @if (loggedUser.userRole.Id < 4)
+        {
+            <div class="col-2"><a href="/Author/Create">New Author</a></div>
+            <br />
+        }
+        <div class="row">
+            @if (Model.Authors.Count() == 0)
+            {
+                <p>There are no available authors</p>
+            }
+            @foreach (AuthorDTO author in Model.Authors)
+            {
+                <div class="row">
+                    <div class="col-1"><a href="/Author/Display?Id=@author.Id"> @author.FirstName @author.LastName </a></div>
+                    <div class="col-2">@author.Description</div>
+                    <div class="col-3">
+                        @if (loggedUser.userRole.Id < 4)
+                        {
+                            <p>
+                                | <a href="/Author/Edit?Id=@author.Id">Edit</a> |
+                                <a href="/Author/Delete?Id=@author.Id">Delete</a> |
+                            </p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p class="right">
+                    @if (Model.Page > 1)
+                    {
+                        <a href="/Author/Index?Page=@(Model.Page-1)"> < </a>
+                    }
+
+                    @Model.Page
+
+                    @if (Model.Page < Model.PageCount)
+                    {
+                        <a href="/Author/Index?Page=@(Model.Page + 1)"> > </a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</fieldset>
+

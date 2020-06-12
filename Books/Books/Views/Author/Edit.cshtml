@@ -1,0 +1,50 @@
+﻿@model Books.ViewModels.Authors.AuthorVM
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<fieldset>
+    <legend>Edit Author</legend>
+
+    <form action="/Author/Edit" method="post">
+        <div class="grid">
+            <div class="col-2">@Html.HiddenFor(u => u.Id)</div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.FirstName) </div>
+                <div class="col-2"> @Html.TextBoxFor(u => u.FirstName) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.FirstName)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.LastName) </div>
+                <div class="col-2"> @Html.TextBoxFor(u => u.LastName) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.LastName)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Description)</div>
+                <div class="col-2"> @Html.TextAreaFor(u => u.Description)</div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Description)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Rating) </div>
+                <div class="col-2"> @Html.EditorFor(u => u.Rating) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.Rating)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.ActiveFrom) </div>
+                <div class="col-2"> @Html.EditorFor(u => u.ActiveFrom) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.ActiveFrom)</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.ActiveTo) </div>
+                <div class="col-2"> @Html.EditorFor(u => u.ActiveTo) </div>
+                <div class="col-2"> @Html.ValidationMessageFor(u => u.ActiveTo)</div>
+            </div>
+            <div class="row">
+                <div class="col-3"><input class="right" type="submit" value="Save" /></div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+

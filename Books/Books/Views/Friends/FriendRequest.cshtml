@@ -1,0 +1,25 @@
+﻿@model Books.ViewModels.FriendRequests.FriendRequestVM
+
+@{
+    ViewBag.Title = "FriendRequest";
+    Layout = "~/Views/Shared/_Site.cshtml";
+}
+
+<legend>Friend Request for @Model.Name</legend>
+<fieldset>
+    <form action="/Friends/FriendRequest" method="post">
+        <div class="grid">
+            <div class="row"> @Html.HiddenFor(u => u.FriendId)</div>
+            <div class="row"> @Html.HiddenFor(u => u.Name)</div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Message)</div>
+                <div class="col-2"> @Html.TextAreaFor(u => u.Message)</div>
+            </div>
+            <div class="row">
+                <div class="col-2"><input class="right" type="submit" value="Send Request" /></div>
+            </div>
+        </div>
+    </form>
+</fieldset>
+
+

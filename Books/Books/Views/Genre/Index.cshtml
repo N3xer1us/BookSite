@@ -1,0 +1,72 @@
+﻿@using Books.ServiceReference1
+@model Books.ViewModels.Genres.IndexVM
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO loggedUser = (UserDTO)Session["loggedUser"];
+}
+
+<fieldset>
+    <legend>Genres</legend>
+
+    <div>
+        @using (Html.BeginForm("Index", "Genre", FormMethod.Get))
+        {
+            <p>
+                Name:@Html.TextBox("Search")
+                <input type="submit" value="Search" />
+            </p>
+        }
+    </div>
+    <hr />
+
+    <div class="grid">
+        @if (loggedUser.userRole.Id < 4)
+        {
+            <div class="col-2"><a href="/Genre/Create">New Genre</a></div>
+            <br />
+        }
+        <div class="row">
+            @if (Model.Genres.Count() == 0)
+            {
+                <p>There are no available genres</p>
+            }
+            @foreach (GenreDTO genre in Model.Genres)
+            {
+                <div class="row">
+                    <div class="col-1"><a href="/Genre/Display?Id=@genre.Id"> @genre.GenreName </a></div>
+                    <div class="col-2">@genre.Description</div>
+                    <div class="col-3">
+                        @if (loggedUser.userRole.Id < 4)
+                        {
+                            <p>
+                                | <a href="/Genre/Edit?Id=@genre.Id">Edit</a> |
+                                <a href="/Genre/Delete?Id=@genre.Id">Delete</a> |
+                            </p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p class="right">
+                    @if (Model.Page > 1)
+                    {
+                        <a href="/Genre/Index?Page=@(Model.Page-1)"> < </a>
+                    }
+
+                    @Model.Page
+
+                    @if (Model.Page < Model.PageCount)
+                    {
+                        <a href="/Genre/Index?Page=@(Model.Page + 1)"> > </a>
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+
+</fieldset>
+

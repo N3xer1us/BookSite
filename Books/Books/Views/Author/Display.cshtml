@@ -1,0 +1,51 @@
+﻿@model Books.ViewModels.Authors.DisplayVM
+@using Books.ServiceReference1 
+@{
+    ViewBag.Title = "Display";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO loggedUser = (UserDTO)Session["loggedUser"];
+
+}
+
+    <fieldset>
+        <legend>Author Info</legend>
+        <div class="grid">
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.FirstName)</div>
+                <div class="col-2"> @Model.FirstName</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.LastName)</div>
+                <div class="col-2"> @Model.LastName</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.ActiveFrom)</div>
+                <div class="col-2"> @Model.ActiveFrom</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.ActiveTo)</div>
+                <div class="col-2"> @Model.ActiveTo</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Description)</div>
+                <div class="col-2"> @Model.Description</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Rating)</div>
+                <div class="col-2"> @Model.Rating</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.BookCount)</div>
+                <div class="col-2"> @Model.BookCount</div>
+            </div>
+            
+            @if (loggedUser.userRole.Id <= 3)
+            {
+            <div class="row">
+                <div class="col-2"><a href="/Author/Edit?Id=@Model.Id">Edit Info</a></div>
+            </div>
+            }
+        </div>
+    </fieldset>
+

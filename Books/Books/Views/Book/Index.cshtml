@@ -1,0 +1,90 @@
+﻿@using Books.ServiceReference1
+@model Books.ViewModels.Books.IndexVM
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO loggedUser = (UserDTO)Session["loggedUser"];
+
+    Service1Client service = new Service1Client();
+
+    List<UserToBookDTO> owned = service.GetBooksByUserId(loggedUser.Id).ToList();
+
+    int PageNum = Model.Page;
+}
+
+<fieldset>
+    <legend>Books</legend>
+
+    <div>
+        @using (Html.BeginForm("Index", "Book", FormMethod.Get))
+        {
+            <p>
+                Title: @Html.TextBox("SearchTitle") 
+                Author: @Html.DropDownListFor(u=>u.AuthorId, Model.Authors, "Select Author") 
+                Genre: @Html.DropDownListFor(u=>u.GenreId, Model.Genres, "Select Genre")
+                <input type="submit" value="Search" />
+            </p>
+        }
+    </div>
+    <hr />
+
+    <div class="grid">
+        @if (loggedUser.userRole.Id < 4)
+        {
+            <div class="col-1"><a href="/Book/Create">New Book</a></div>
+            <br />
+        }
+        <div class="row">
+            @if(Model.Books.Count() == 0)
+            { 
+                <p>There are no available books</p>
+            }
+            @foreach (BookDTO book in Model.Books)
+            {
+                <div class="row">
+                    <div class="col-1"><a href="/Book/Display?Id=@book.Id">@book.Title</a></div>
+                    <div class="col-1"> @book.bookAuthor.FirstName  @book.bookAuthor.LastName </div>
+                    <div class="col-1"> @book.bookGenre.GenreName  </div>
+
+                    @if (owned.Where(u => u.Book.Id == book.Id).FirstOrDefault()==null)
+                    {
+                    <div class="col-2"><a href="/Book/Download?Id=@book.Id">Download</a></div>
+                    }
+                    else
+                    {
+                        <div class="col-2"><p>Book already owned</p></div>
+                    }
+                    <div class="col-3">
+                        @if (loggedUser.userRole.Id < 4)
+                        {
+                            <p>
+                                | <a href="/Book/Edit?Id=@book.Id">Edit</a> |
+                                <a href="/Book/Delete?Id=@book.Id">Delete</a> |
+                            </p>
+                        }
+                    </div>
+                </div>
+            } 
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <p class="right">
+                    @if (Model.Page > 1)
+                    {
+                        <a href="/Book/Index?Page=@(Model.Page-1)"> < </a>
+                    }
+
+                    @Model.Page
+
+                    @if (Model.Page < Model.PageCount)
+                     {
+                           <a href="/Book/Index?Page=@(Model.Page + 1)"> > </a>
+                     }
+                    </p>
+            </div>
+        </div>
+    </div>
+</fieldset>
+

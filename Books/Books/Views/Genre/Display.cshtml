@@ -1,0 +1,43 @@
+﻿@model Books.ViewModels.Genres.DisplayVM
+@using Books.ServiceReference1
+@{
+    ViewBag.Title = "Display";
+    Layout = "~/Views/Shared/_Site.cshtml";
+
+    UserDTO loggedUser = (UserDTO)Session["loggedUser"];
+
+}
+
+    <fieldset>
+        <legend>Genre Info</legend>
+        <div class="grid">
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.GenreName)</div>
+                <div class="col-2"> @Model.GenreName</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Description)</div>
+                <div class="col-2"> @Model.Description</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.Rating)</div>
+                <div class="col-2"> @Model.Rating</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.LastUpdated)</div>
+                <div class="col-2"> @Model.LastUpdated</div>
+            </div>
+            <div class="row">
+                <div class="col-1"> @Html.LabelFor(u => u.BookCount)</div>
+                <div class="col-2"> @Model.BookCount</div>
+            </div>
+        
+            @if (loggedUser.userRole.Id <= 3)
+            {
+            <div class="row">
+                <div class="col-2"><a href="/Genre/Edit?Id=@Model.Id">Edit Info</a></div>
+            </div>
+            }
+        </div>
+    </fieldset>
+
